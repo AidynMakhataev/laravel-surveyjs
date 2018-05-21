@@ -1,0 +1,42 @@
+{
+    "name": "aidynmakhataev/laravelsurveyjs",
+    "description": ":description",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Aidyn Makhataev",
+            "email": "makataev.7@gmail.com",
+            "homepage": "https://github.com/AidynMakhataev"
+        }
+    ],
+    "homepage": "https://github.com/aidynmakhataev/laravelsurveyjs",
+    "keywords": ["Laravel", "LaravelSurveyJs"],
+    "require": {
+        "illuminate/support": "~5",
+        "cviebrock/eloquent-sluggable": "^4.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~6.0",
+        "orchestra/testbench": "~3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "AidynMakhataev\\LaravelSurveyJs\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AidynMakhataev\\LaravelSurveyJs\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "AidynMakhataev\\LaravelSurveyJs\\LaravelSurveyJsServiceProvider"
+            ],
+            "aliases": {
+                "LaravelSurveyJs": "AidynMakhataev\\LaravelSurveyJs\\Facades\\LaravelSurveyJs"
+            }
+        }
+    }
+}
