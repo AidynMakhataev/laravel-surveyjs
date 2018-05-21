@@ -13,12 +13,10 @@ class Survey extends Model
     protected $table = 'surveys';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'name', 'slug', 'elements', 'questionTitleLocation', 'title', 'description', 'navigationButtonsVisibility', 'questionsOrder', 'maxTimeToFinish', 'visible', 'visibleIf'
+        'name', 'slug', 'json'
     ];
     protected $casts = [
-        'elements'          =>  'array',
-        'maxTimeToFinish'   =>  'integer',
-        'visible'           =>  'boolean'
+        'json'  =>  'array'
     ];
 
 
