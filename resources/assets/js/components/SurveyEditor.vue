@@ -42,6 +42,7 @@
         methods: {
             onCancelEdit() {
                 this.edit = false;
+                this.name = this.survey.name;
             }
         }
     }

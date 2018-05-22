@@ -38,7 +38,7 @@
         mounted () {
             let editorOptions = { showEmbededSurveyTab: false };
             this.editor = new SurveyEditor.SurveyEditor('surveyEditorContainer', editorOptions);
-            this.editor.text = JSON.stringify(this.json);
+            // this.editor.text = JSON.stringify(this.json);
             this.editor.saveSurveyFunc = function() {
                 console.log(JSON.stringify(this.text));
             };
