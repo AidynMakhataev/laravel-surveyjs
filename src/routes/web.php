@@ -8,7 +8,7 @@ Route::group(
         'prefix'        =>  config('survey-manager.route_prefix')
     ],
     function () {
-        Route::get('/', 'SurveyController@index')->name('survey-manager.home');
+        Route::view('/', 'survey-manager::index')->name('survey-manager.home');
         Route::get('/editor/{id}', 'SurveyController@editor');
     }
 );

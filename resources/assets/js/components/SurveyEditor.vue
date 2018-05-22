@@ -18,7 +18,7 @@
         </div>
         <div class="sv_body">
             <div id="survey-manager">
-                <survey-builder></survey-builder>
+                <survey-builder :json="json"></survey-builder>
             </div>
         </div>
     </div>
@@ -31,9 +31,11 @@
         components: {
             SurveyBuilder
         },
+        props: ['survey'],
         data () {
             return {
-                name: '',
+                name: this.survey.name,
+                json: this.survey.json,
                 edit: false
             }
         },

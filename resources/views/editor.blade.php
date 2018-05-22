@@ -24,7 +24,7 @@
     <div class="sv_main sv_frame sv_default_css" id="survey-manager">
         <div class="sv_custom_header">
         </div>
-        <survey-editor></survey-editor>
+        <survey-editor :survey="{{ json_encode($survey) }}"></survey-editor>
     </div>
 
     <script src="{{asset('vendor/AidynMakhataev/LaravelSurveyJs/js/survey-manager.js')}}"></script>

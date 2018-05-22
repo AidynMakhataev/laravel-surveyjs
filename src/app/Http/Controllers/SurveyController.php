@@ -7,17 +7,13 @@ use Illuminate\Routing\Controller;
 
 class SurveyController extends Controller
 {
-    public function index()
-    {
-        $surveys = Survey::all();
-
-        return view('survey-manager::index', [
-            'surveys' => $surveys
-        ]);
-    }
 
     public function editor($id)
     {
-        return view('survey-manager::editor');
+        $survey = Survey::findOrFail($id);
+
+        return view('survey-manager::editor', [
+            'survey' => $survey
+        ]);
     }
 }

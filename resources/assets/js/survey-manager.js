@@ -8,17 +8,11 @@ require("./base");
 window.Vue = require("vue");
 
 /**
- * Moment is a javascript library that we can use to format dates
- * It's similar to Carbon in PHP so we mostly use it to format
- * dates that are returned from our Laravel Eloquent models
- */
-window.moment = require("moment");
-
-/**
  * Register Vue components...
  */
 Vue.component("survey-test", require('./components/TestComponent.vue'));
 Vue.component('survey-editor', require('./components/SurveyEditor.vue'));
+Vue.component('survey-list', require('./components/SurveyList.vue'));
 
 
 const app = new Vue({
