@@ -11,13 +11,33 @@ class SurveyAPIController extends Controller
 {
     public function index()
     {
-        $surveys = Survey::paginate(config('survey-manager.pagination_perPage', 10));
+        $surveys = Survey::latest()->paginate(config('survey-manager.pagination_perPage', 10));
 
         return SurveyResource::collection($surveys);
     }
 
     public function store(CreateSurveyRequest $request)
     {
-        return $request->all();
+        $survey = Survey::create($request->all());
+
+        return response()->json([
+            'data'      =>  new SurveyResource($survey),
+            'message'   =>  'Survey saved successfully'
+        ], 201);
+    }
+
+    public function destroy($id)
+    {
+        $survey = Survey::find($id);
+
+        if(is_null($survey)) {
+            return response()->json('Survey not found', 404);
+        }
+        $survey->delete();
+
+        return response()->json([
+            'data' => $id,
+            'message' => 'Survey deleted successfully'
+        ], 200);
     }
 }

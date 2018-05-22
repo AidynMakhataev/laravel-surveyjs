@@ -12,33 +12,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <script type="text/javascript">
-        $(document).ready(function(){
-            // Activate tooltip
-            $('[data-toggle="tooltip"]').tooltip();
-
-            // Select/Deselect checkboxes
-            var checkbox = $('table tbody input[type="checkbox"]');
-            $("#selectAll").click(function(){
-                if(this.checked){
-                    checkbox.each(function(){
-                        this.checked = true;
-                    });
-                } else{
-                    checkbox.each(function(){
-                        this.checked = false;
-                    });
-                }
-            });
-            checkbox.click(function(){
-                if(!this.checked){
-                    $("#selectAll").prop("checked", false);
-                }
-            });
-        });
-    </script>
 @endsection
 
 @section('content')
-    <survey-list :api-prefix="{{json_encode(config('survey-manager.api_prefix'))}}"></survey-list>
+    <survey-list></survey-list>
 @endsection

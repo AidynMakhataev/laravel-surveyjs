@@ -7,6 +7,9 @@ require("./base");
 
 window.Vue = require("vue");
 
+import Toastr from 'vue-toastr';
+require('vue-toastr/src/vue-toastr.scss');
+Vue.use(Toastr);
 /**
  * Register Vue components...
  */

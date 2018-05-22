@@ -23,15 +23,7 @@ class CreateSurveyRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'                          =>  'required|max:255',
-            'elements'                      =>  'required|array',
-            'questionTitleLocation'         =>  'in:default,top,bottom,left',
-            'title'                         =>  'max:255|nullable',
-            'navigationButtonsVisibility'   =>  'in:inherit,show,hide',
-            'questionsOrder'                =>  'in:default,initial,random',
-            'maxTimeToFinish'               =>  'integer|nullable',
-            'visible'                       =>  'boolean',
-            'visibleIf'                     =>  'max:255|nullable'
+            'name'  =>  'required|max:255'
         ];
     }
 }
