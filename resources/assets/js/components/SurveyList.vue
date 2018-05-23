@@ -38,7 +38,7 @@
             <pagination :pagination="pagination" :offset="4" @paginate="getSurveys"></pagination>
         </div>
 
-        <add-modal @added="getSurveys"></add-modal>
+        <add-modal></add-modal>
 
         <delete-modal :survey="chosenSurvey" @deleted="getSurveys"></delete-modal>
     </div>

@@ -39,7 +39,9 @@
             addSurvey() {
                 let data = {
                     name: this.name,
-                    json: {}
+                    json: {
+                        pages: []
+                    }
                 };
                 axios.post('/survey', data)
                     .then((response) => {
@@ -47,7 +49,7 @@
                             this.name = '';
                             this.removeStyles();
                             this.$toastr.s(response.data.message);
-                            this.$emit('added');
+                            window.location.replace('/' + SurveyConfig.routePrefix + '/editor/' + response.data.data.id);
                         }
                     })
                     .catch((error) => {

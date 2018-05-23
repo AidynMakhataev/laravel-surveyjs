@@ -30,17 +30,27 @@
 
     export default {
         name: 'survey-builder',
-        props: ['json'],
+        props: ['json', 'id'],
         data () {
             return {
+                surveyData: this.json,
+                surveyId: this.id
             }
         },
         mounted () {
             let editorOptions = { showEmbededSurveyTab: false };
             this.editor = new SurveyEditor.SurveyEditor('surveyEditorContainer', editorOptions);
-            // this.editor.text = JSON.stringify(this.json);
-            this.editor.saveSurveyFunc = function() {
-                console.log(JSON.stringify(this.text));
+            this.editor.text = JSON.stringify(this.surveyData);
+            let self = this;
+            this.editor.saveSurveyFunc = function () {
+                axios.put('/survey/' + self.id, {json: JSON.parse(this.text)})
+                    .then((response) => {
+                        self.$toastr.s(response.data.message);
+                        self.editor.text = JSON.stringify(response.data.data.json);
+                    })
+                    .catch((error) => {
+                        console.error(error.response);
+                    })
             };
         }
     }

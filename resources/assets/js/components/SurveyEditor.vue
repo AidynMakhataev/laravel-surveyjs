@@ -4,8 +4,8 @@
             <h3>
                 <span id="sjs_editor_title_edit" class="editor_title_edit" v-if="edit">
                     <input style="border-top: none; border-left: none; border-right: none; outline: none;" v-model="name" />
-                    <span class="btn btn-success" onclick="postEdit()" style="border-radius: 2px; margin-top: -8px; background-color: #1ab394; border-color: #1ab394;">Update</span>
-                    <span class="btn btn-warning" @click="onCancelEdit()" style="border-radius: 2px; margin-top: -8px;">Cancel</span>
+                    <span class="btn btn-success" @click.prevent="postEdit()" style="border-radius: 2px; margin-top: -8px; background-color: #1ab394; border-color: #1ab394;">Update</span>
+                    <span class="btn btn-warning" @click.prevent="onCancelEdit()" style="border-radius: 2px; margin-top: -8px;">Cancel</span>
                 </span>
                 <span id="sjs_editor_title_show" v-else>
                         <span style="padding-top: 1px; height: 39px; display: inline-block;">{{name}}</span>
@@ -18,7 +18,7 @@
         </div>
         <div class="sv_body">
             <div id="survey-manager">
-                <survey-builder :json="json"></survey-builder>
+                <survey-builder :json="json" :id="id"></survey-builder>
             </div>
         </div>
     </div>
@@ -34,6 +34,7 @@
         props: ['survey'],
         data () {
             return {
+                id: this.survey.id,
                 name: this.survey.name,
                 json: this.survey.json,
                 edit: false
@@ -43,6 +44,16 @@
             onCancelEdit() {
                 this.edit = false;
                 this.name = this.survey.name;
+            },
+            postEdit() {
+                axios.put('/survey/' + this.survey.id, {name: this.name})
+                    .then((response) => {
+                        this.edit = false;
+                        this.$toastr.s(response.data.message);
+                    })
+                    .catch((error) => {
+                        console.error(error.response);
+                    })
             }
         }
     }
