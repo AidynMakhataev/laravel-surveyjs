@@ -38,7 +38,8 @@
             }
         },
         mounted () {
-            let editorOptions = { showEmbededSurveyTab: false };
+            let editorOptions = SurveyConfig.builder;
+            SurveyEditor.StylesManager.applyTheme(SurveyConfig.builder.theme);
             this.editor = new SurveyEditor.SurveyEditor('surveyEditorContainer', editorOptions);
             this.editor.text = JSON.stringify(this.surveyData);
             let self = this;

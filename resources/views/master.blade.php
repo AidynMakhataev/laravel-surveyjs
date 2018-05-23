@@ -15,10 +15,7 @@
     </div>
 
     <script>
-        window.SurveyConfig = {!! json_encode([
-                'apiPrefix'    =>  config('survey-manager.api_prefix'),
-                'routePrefix'  =>  config('survey-manager.route_prefix')
-        ]) !!};
+        window.SurveyConfig = {!! json_encode(config('survey-manager')) !!};
     </script>
     <script src="{{asset('vendor/AidynMakhataev/LaravelSurveyJs/js/survey-manager.js')}}"></script>
     @yield('after_scripts')

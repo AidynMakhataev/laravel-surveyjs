@@ -3,7 +3,7 @@
         <div class="sv_header">
             <h3>
                 <span id="sjs_editor_title_edit" class="editor_title_edit" v-if="edit">
-                    <input style="border-top: none; border-left: none; border-right: none; outline: none;" v-model="name" />
+                    <input style="border-top: none; border-left: none; border-right: none; outline: none; color: #040505" v-model="name" />
                     <span class="btn btn-success" @click.prevent="postEdit()" style="border-radius: 2px; margin-top: -8px; background-color: #1ab394; border-color: #1ab394;">Update</span>
                     <span class="btn btn-warning" @click.prevent="onCancelEdit()" style="border-radius: 2px; margin-top: -8px;">Cancel</span>
                 </span>

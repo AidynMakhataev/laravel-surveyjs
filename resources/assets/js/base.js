@@ -7,7 +7,7 @@
 window.axios = require("axios");
 
 window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
-window.axios.defaults.baseURL = '/' + SurveyConfig.apiPrefix
+window.axios.defaults.baseURL = '/' + SurveyConfig.api_prefix;
 
 /**
  * Next we will register the CSRF Token as a common header with Axios so that
