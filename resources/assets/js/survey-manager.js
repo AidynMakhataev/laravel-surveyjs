@@ -16,6 +16,7 @@ Vue.use(Toastr);
 Vue.component("survey-test", require('./components/TestComponent.vue'));
 Vue.component('survey-editor', require('./components/SurveyEditor.vue'));
 Vue.component('survey-list', require('./components/SurveyList.vue'));
+Vue.component('show-survey', require('./components/Survey.vue'));
 
 
 const app = new Vue({

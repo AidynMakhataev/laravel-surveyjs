@@ -89,3 +89,6 @@ section {
 .fork_me_on_github img {
     z-index: 1;
 }
+.github-corner svg {
+    z-index: 1;
+}

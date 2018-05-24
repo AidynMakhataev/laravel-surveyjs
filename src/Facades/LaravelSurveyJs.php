@@ -13,6 +13,6 @@ class LaravelSurveyJs extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'laravelsurveyjs';
+        return 'survey-manager';
     }
 }

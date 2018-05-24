@@ -4,5 +4,8 @@ namespace AidynMakhataev\LaravelSurveyJs;
 
 class LaravelSurveyJs
 {
-    // Build wonderful things
+    public function sayHello()
+    {
+        echo "Hello World from Facade!";
+    }
 }

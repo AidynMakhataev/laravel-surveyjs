@@ -49,7 +49,7 @@
                             this.name = '';
                             this.removeStyles();
                             this.$toastr.s(response.data.message);
-                            window.location.replace('/' + SurveyConfig.routePrefix + '/editor/' + response.data.data.id);
+                            window.location.replace('/' + SurveyConfig.route_prefix + '/editor/' + response.data.data.id);
                         }
                     })
                     .catch((error) => {

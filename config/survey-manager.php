@@ -5,6 +5,10 @@ return [
 
     'api_prefix'                =>  'api',
 
+    'route_middleware'          =>  ['web'],
+
+    'api_middleware'            =>  ['api'],
+
     'pagination_perPage'        =>  10,
 
     'builder'                   =>  [
