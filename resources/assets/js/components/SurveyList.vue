@@ -23,7 +23,10 @@
                 <tr v-for="survey in surveys" :key="survey.id" >
                     <td>{{survey.id}}</td>
                     <td>{{survey.name}}</td>
-                    <td>
+                    <td style="display:flex;">
+                        <a href="javascript:void(0)" class="run" @click="onRun(survey.slug)">
+                            <i class="material-icons" title="Run">play_arrow</i>
+                        </a>
                         <a href="javascript:void(0)" class="edit" @click="onEdit(survey.id)">
                             <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                         </a>
@@ -88,6 +91,9 @@
             },
             onDelete(survey) {
                 this.chosenSurvey = survey;
+            },
+            onRun(slug) {
+                window.location.replace('/' + SurveyConfig.route_prefix + '/' + slug)
             }
         }
     }

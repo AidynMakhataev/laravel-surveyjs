@@ -5,6 +5,8 @@ return [
 
     'api_prefix'                =>  'api',
 
+    'user_model'                =>  'App\User',
+
     'route_middleware'          =>  ['web'],
 
     'api_middleware'            =>  ['api'],
