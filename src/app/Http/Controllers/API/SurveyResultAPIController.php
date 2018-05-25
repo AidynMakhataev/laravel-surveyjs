@@ -14,6 +14,11 @@ class SurveyResultAPIController extends Controller {
         return SurveyResultResource::collection($survey->results);
     }
 
+    /**
+     * @param Survey $survey
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(Survey $survey, Request $request)
     {
         $request->validate([

@@ -8,15 +8,26 @@ use Illuminate\Routing\Controller;
 class SurveyController extends Controller
 {
 
-    public function editor($id)
+    /**
+     * @param Survey $survey
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function editor(Survey $survey)
     {
-        $survey = Survey::findOrFail($id);
-
         return view('survey-manager::editor', [
             'survey' => $survey
         ]);
     }
 
+    public function result(Survey $survey)
+    {
+        return $survey->results;
+    }
+
+    /**
+     * @param $slug
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function runSurvey($slug)
     {
         $survey = Survey::where('slug', $slug)->firstOrFail();

@@ -87,7 +87,7 @@
                 this.total = this.surveys.length;
             },
             onEdit(id) {
-                window.location.replace('/' + SurveyConfig.route_prefix + '/editor/' + id)
+                window.location.replace('/' + SurveyConfig.admin_prefix + '/survey/' + id + '/editor')
             },
             onDelete(survey) {
                 this.chosenSurvey = survey;
