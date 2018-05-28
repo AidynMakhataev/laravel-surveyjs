@@ -15,7 +15,7 @@ return [
 
     'admin_middleware'          =>  ['web'],
 
-    'pagination_perPage'        =>  10,
+    'pagination_perPage'        =>  12,
 
     'builder'                   =>  [
 

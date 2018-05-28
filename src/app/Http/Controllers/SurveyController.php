@@ -19,9 +19,15 @@ class SurveyController extends Controller
         ]);
     }
 
+    /**
+     * @param Survey $survey
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function result(Survey $survey)
     {
-        return $survey->results;
+        return view('survey-manager::result', [
+            'survey'    =>  $survey
+        ]);
     }
 
     /**

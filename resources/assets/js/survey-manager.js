@@ -6,10 +6,8 @@
 require("./base");
 
 window.Vue = require("vue");
-
-import Toastr from 'vue-toastr';
-require('vue-toastr/src/vue-toastr.scss');
-Vue.use(Toastr);
+window.Vuetify = require('vuetify');
+Vue.use(Vuetify);
 /**
  * Register Vue components...
  */
@@ -17,6 +15,7 @@ Vue.component("survey-test", require('./components/TestComponent.vue'));
 Vue.component('survey-editor', require('./components/SurveyEditor.vue'));
 Vue.component('survey-list', require('./components/SurveyList.vue'));
 Vue.component('show-survey', require('./components/Survey.vue'));
+Vue.component('survey-result', require('./components/SurveyResult.vue'));
 
 
 const app = new Vue({

@@ -11,7 +11,9 @@ class SurveyResultAPIController extends Controller {
 
     public function index(Survey $survey) {
 
-        return SurveyResultResource::collection($survey->results);
+        $results = $survey->results()->paginate(config('survey-manager.pagination_perPage', 10));
+
+        return SurveyResultResource::collection($results);
     }
 
     /**

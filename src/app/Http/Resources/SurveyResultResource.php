@@ -16,9 +16,10 @@ class SurveyResultResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'        =>  $this->id,
-            'json'      =>  $this->json,
-            'survey'    =>  new SurveyResource($this->survey)
+            'id'            =>  $this->id,
+            'json'          =>  $this->json,
+            'ip_address'    =>  $this->ip_address,
+            'created_at'    =>  $this->created_at
         ];
     }
 }

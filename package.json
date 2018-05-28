@@ -24,7 +24,6 @@
     "survey-knockout": "^1.0.22"
   },
   "dependencies": {
-    "vue-simple-spinner": "^1.2.8",
-    "vue-toastr": "^2.0.14"
+    "vuetify": "^1.0.18"
   }
 }

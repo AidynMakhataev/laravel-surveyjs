@@ -1,100 +1,197 @@
 <template>
-    <div class="container">
-        <div class="table-wrapper">
-            <div class="table-title">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <h2>Manage <b>Surveys</b></h2>
-                    </div>
-                    <div class="col-sm-6">
-                        <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Survey</span></a>
-                    </div>
-                </div>
-            </div>
-            <table class="table table-striped table-hover" v-if="!spinner">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-for="survey in surveys" :key="survey.id" >
-                    <td>{{survey.id}}</td>
-                    <td>{{survey.name}}</td>
-                    <td style="display:flex;">
-                        <a href="javascript:void(0)" class="run" @click="onRun(survey.slug)">
-                            <i class="material-icons" title="Run">play_arrow</i>
-                        </a>
-                        <a href="javascript:void(0)" class="edit" @click="onEdit(survey.id)">
-                            <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
-                        </a>
-                        <a href="#deleteEmployeeModal" class="delete" @click="onDelete(survey)" data-toggle="modal">
-                            <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
-                        </a>
+    <div>
+        <v-card>
+            <v-card-title>
+                List of all available surveys
+                <v-spacer></v-spacer>
+                <v-dialog v-model="dialog" max-width="500px" content-class="remove-overflow">
+                    <v-btn slot="activator" color="primary" dark class="mb-2">New Survey</v-btn>
+                    <v-card>
+                        <v-card-title>
+                            <span class="headline">{{ formTitle }}</span>
+                        </v-card-title>
+                        <v-card-text>
+                            <v-container grid-list-md>
+                                <v-layout wrap>
+                                    <v-flex xs12 sm6 md4>
+                                        <v-text-field v-model="editedItem.name" label="Survey name"></v-text-field>
+                                    </v-flex>
+                                </v-layout>
+                            </v-container>
+                        </v-card-text>
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn color="blue darken-1" flat @click.native="onCloseModal">Cancel</v-btn>
+                            <v-btn color="blue darken-1" flat @click.native="onSaveModal(editedItem.name)">Save</v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-dialog>
+            </v-card-title>
+            <v-data-table
+                    :headers="headers"
+                    :items="surveys"
+                    :loading="loading"
+                    hide-actions
+                    class="elevation-1"
+            >
+                <template slot="items" slot-scope="props">
+                    <td class="text-sm-left">{{ props.item.id }}</td>
+                    <td class="text-sm-left">{{ props.item.name }}</td>
+                    <td class="text-sm-left">{{ props.item.created_at}}</td>
+                    <td class="justify-center layout px-0">
+                        <v-btn icon class="mx-0" @click="editItem(props.item)">
+                            <v-icon color="teal">edit</v-icon>
+                        </v-btn>
+                        <v-btn icon class="mx-0" @click="deleteItem(props.item)">
+                            <v-icon color="pink">delete</v-icon>
+                        </v-btn>
                     </td>
-                </tr>
-                </tbody>
-            </table>
-            <vue-simple-spinner size="medium" message="Loading..."  line-fg-color="#179d82" v-else></vue-simple-spinner>
-            <pagination :pagination="pagination" :offset="4" @paginate="getSurveys"></pagination>
-        </div>
+                </template>
+                <template slot="no-data">
+                    <v-btn color="primary" @click="initialize">Reset</v-btn>
+                </template>
+            </v-data-table>
+            <div class="text-xs-center pt-2">
+                <v-pagination v-model="page" :length="pageLength" :total-visible="7"></v-pagination>
+            </div>
+            <v-snackbar
+                :timeout="6000"
+                bottom
+                right
+                multi-line
+                v-model="snackbar"
+            >
+                {{ snackbarMsg }}
+                <v-btn flat color="blue" @click.native="snackbar = false"></v-btn>
+            </v-snackbar>
 
-        <add-modal></add-modal>
+        </v-card>
 
-        <delete-modal :survey="chosenSurvey" @deleted="getSurveys"></delete-modal>
+
     </div>
 </template>
 
 <script>
-    import Pagination from './../components/partials/Pagination.vue'
-    import DeleteModal from './../components/partials/modal/Delete.vue'
-    import AddModal from './../components/partials/modal/Add.vue'
-    import Spinner from 'vue-simple-spinner'
     export default {
+        name: 'survey-list',
         data () {
             return {
                 surveys: [],
-                pagination: {},
-                total: 0,
-                chosenSurvey: {},
-                spinner: false
+                page: 1,
+                pageLength: 1,
+                dialog: false,
+                loading: false,
+                snackbar: false,
+                snackbarMsg: '',
+                formTitle: 'New Survey',
+                headers: [
+                    {
+                        text: 'ID',
+                        alignt: 'left',
+                        value: 'id',
+                        sortable: false
+                    },
+                    {
+                        text: 'Name',
+                        value: 'name',
+                        sortable: false
+                    },
+                    {
+                        text: 'Created date',
+                        valie: 'created_at',
+                        sortable: false
+                    },
+                    {
+                        text: 'Actions',
+                        value: 'actions',
+                        sortable: false
+                    }
+                ],
+                editedItem: {
+                    name: ''
+                },
+
             }
-        },
-        components: {
-            Pagination, DeleteModal, Spinner, AddModal
         },
         mounted() {
             this.getSurveys();
-            this.countTotal();
+        },
+        watch: {
+            page() {
+                this.getSurveys();
+            }
         },
         methods: {
-            getSurveys(page = 1) {
-                this.spinner = true;
-                axios.get('/survey?page='+page)
+            getSurveys() {
+                this.loading = true;
+                axios.get('/survey', {
+                    params: {
+                        page: this.page
+                    }
+                })
                     .then((response) => {
+                        if(response.status === 200) {
+                            this.surveys = response.data.data;
+                            this.pageLength = Math.ceil(response.data.meta.total / response.data.meta.per_page);
+                            this.loading = false;
+                        }
                         this.surveys = response.data.data;
-                        this.pagination = response.data.meta;
-                        this.spinner = false;
                     })
                     .catch((error) => {
+                        this.loading = false;
                         console.info(error.response);
-                        this.spinner = false;
                     })
             },
-            countTotal() {
-                this.total = this.surveys.length;
+            initialize() {
+
             },
-            onEdit(id) {
-                window.location.replace('/' + SurveyConfig.admin_prefix + '/survey/' + id + '/editor')
+            editItem() {
+
             },
-            onDelete(survey) {
-                this.chosenSurvey = survey;
+            deleteItem(item) {
+                if(confirm('Are you sure you want to delete this survey?')) {
+                    this.snackbar = true;
+                    axios.delete('/survey/' + item.id)
+                        .then((response) => {
+                            if(response.status === 200) {
+                                this.snackbarMsg = response.data.message;
+                                this.snackbar = true;
+                            }
+                        });
+                    this.getSurveys();
+                }
             },
-            onRun(slug) {
-                window.location.replace('/' + SurveyConfig.route_prefix + '/' + slug)
+            onCloseModal() {
+                this.dialog = false;
+                this.editedItem = Object.assign({}, {name: ''})
+
+            },
+            onSaveModal(name) {
+                this.loading = true;
+                let data = {
+                    name: name,
+                    json: {
+                        pages: []
+                    }
+                };
+                axios.post('/survey', data)
+                    .then((response) => {
+                        if(response.status === 201) {
+                            this.dialog = false;
+                            this.loading = false;
+                            this.snackbar = true;
+                            this.snackbarMsg = response.data.message;
+                            this.editedItem = Object.assign({}, {name: ''});
+                            this.getSurveys();
+                        }
+                    })
             }
         }
     }
 </script>
+
+<style>
+    .remove-overflow {
+        overflow: inherit;
+    }
+</style>
