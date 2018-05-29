@@ -17,6 +17,20 @@ class SurveyAPIController extends Controller
         return SurveyResource::collection($surveys);
     }
 
+    public function show($id)
+    {
+        $survey = Survey::find($id);
+
+        if(is_null($survey)) {
+            return response()->json('Survey not found', 404);
+        }
+
+        return response()->json([
+            'data'      =>  new SurveyResource($survey),
+            'message'   =>  'Survey successfully retrieved'
+        ]);
+    }
+
     public function store(CreateSurveyRequest $request)
     {
         $survey = Survey::create($request->all());

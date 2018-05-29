@@ -9,7 +9,7 @@ Route::group(
     ],
     function () {
         Route::resource('/survey', 'SurveyAPIController', ['only' => [
-            'index', 'store', 'update', 'destroy'
+            'index', 'store', 'update', 'destroy', 'show'
         ]]);
         Route::resource('/survey/{survey}/result', 'SurveyResultAPIController');
     }

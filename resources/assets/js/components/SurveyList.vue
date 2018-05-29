@@ -47,7 +47,7 @@
                 <td class="text-sm-left">{{ props.item.name }}</td>
                 <td class="text-sm-left">{{ props.item.created_at}}</td>
                 <td class="justify-center layout px-0">
-                    <v-btn icon class="mx-0" @click="editItem(props.item)">
+                    <v-btn icon class="mx-0" @click="editItem(props.item.id)">
                         <v-icon color="teal">edit</v-icon>
                     </v-btn>
                     <v-btn icon class="mx-0" @click="deleteItem(props.item)">
@@ -62,16 +62,6 @@
         <div class="text-xs-center pt-2">
             <v-pagination v-model="page" :length="pageLength" :total-visible="7"></v-pagination>
         </div>
-        <v-snackbar
-                :timeout="6000"
-                bottom
-                right
-                multi-line
-                v-model="snackbar"
-        >
-            {{ snackbarMsg }}
-            <v-btn flat color="blue" @click.native="snackbar = false"></v-btn>
-        </v-snackbar>
     </div>
 </template>
 
@@ -85,8 +75,6 @@
                 pageLength: 1,
                 dialog: false,
                 loading: false,
-                snackbar: false,
-                snackbarMsg: '',
                 formTitle: 'New Survey',
                 headers: [
                     {
@@ -149,8 +137,8 @@
             initialize() {
 
             },
-            editItem() {
-
+            editItem(id) {
+                this.$router.push({name: 'editor', params: {id: id}})
             },
             deleteItem(item) {
                 if(confirm('Are you sure you want to delete this survey?')) {
@@ -158,8 +146,8 @@
                     axios.delete('/survey/' + item.id)
                         .then((response) => {
                             if(response.status === 200) {
-                                this.snackbarMsg = response.data.message;
-                                this.snackbar = true;
+                                this.$root.snackbarMsg = response.data.message;
+                                this.$root.snackbar = true;
                             }
                         });
                     this.getSurveys();
@@ -183,8 +171,8 @@
                         if(response.status === 201) {
                             this.dialog = false;
                             this.loading = false;
-                            this.snackbar = true;
-                            this.snackbarMsg = response.data.message;
+                            this.$root.snackbarMsg = response.data.message;
+                            this.$root.snackbar = true;
                             this.editedItem = Object.assign({}, {name: ''});
                             this.getSurveys();
                         }

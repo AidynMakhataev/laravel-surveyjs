@@ -19,7 +19,7 @@ return [
 
     'builder'                   =>  [
 
-        'theme'                 =>  'default',
+        'theme'                 =>  'darkblue',
 
         'showEmbededSurveyTab'  =>  false,
 

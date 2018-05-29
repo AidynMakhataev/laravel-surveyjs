@@ -8,16 +8,41 @@ require("./base");
 window.Vue = require("vue");
 window.Vuetify = require('vuetify');
 Vue.use(Vuetify);
+
+import VueRouter from 'vue-router';
+Vue.use(VueRouter);
+
+
 /**
- * Register Vue components...
+ * Import admin spa components
  */
-Vue.component("survey-test", require('./components/TestComponent.vue'));
-Vue.component('survey-editor', require('./components/SurveyEditor.vue'));
-Vue.component('survey-list', require('./components/SurveyList.vue'));
-Vue.component('show-survey', require('./components/Survey.vue'));
-Vue.component('survey-result', require('./components/SurveyResult.vue'));
+
+import SurveyList from './components/SurveyList.vue';
+import SurveyEditor from './components/SurveyEditor.vue';
+
+
+/**
+ *  SPA routes
+ */
+const routes = [
+    { path: '/', component: SurveyList, name: 'home'},
+    { path: '/:id', component: SurveyEditor, name: 'editor'}
+];
+
+const router = new VueRouter({
+    mode: 'history',
+    base: '/' + SurveyConfig.admin_prefix + '/survey',
+    routes
+});
 
 
 const app = new Vue({
-    el: '#survey-manager'
+    el: '#survey-manager',
+    data () {
+      return {
+          snackbar: false,
+          snackbarMsg: ''
+      }
+    },
+    router
 });

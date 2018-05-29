@@ -1,5 +1,17 @@
 <template>
-    <div id="surveyEditorContainer">
+    <div>
+        <div id="surveyEditorContainer">
+        </div>
+        <v-snackbar
+                :timeout="6000"
+                bottom
+                right
+                multi-line
+                v-model="snackbar"
+        >
+            {{ snackbarMsg }}
+            <v-btn flat color="blue" @click.native="snackbar = false">Close</v-btn>
+        </v-snackbar>
     </div>
 </template>
 
@@ -15,7 +27,9 @@
         data () {
             return {
                 surveyData: this.json,
-                surveyId: this.id
+                surveyId: this.id,
+                snackbar: false,
+                snackbarMsg: ''
             }
         },
         mounted () {
@@ -27,7 +41,8 @@
             this.editor.saveSurveyFunc = function () {
                 axios.put('/survey/' + self.id, {json: JSON.parse(this.text)})
                     .then((response) => {
-                        self.$toastr.s(response.data.message);
+                        self.snackbar = true;
+                        self.snackbarMsg = response.data.message;
                         self.editor.text = JSON.stringify(response.data.data.json);
                     })
                     .catch((error) => {
@@ -39,5 +54,8 @@
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
+    .btn-primary {
+        background-color: #1976d2 !important
+    }
 </style>
