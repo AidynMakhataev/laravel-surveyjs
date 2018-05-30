@@ -47,6 +47,9 @@
                 <td class="text-sm-left">{{ props.item.name }}</td>
                 <td class="text-sm-left">{{ props.item.created_at}}</td>
                 <td class="justify-center layout px-0">
+                    <v-btn icon class="mx-0" @click="showResults(props.item)">
+                        <v-icon color="indigo">question_answer</v-icon>
+                    </v-btn>
                     <v-btn icon class="mx-0" @click="editItem(props.item.id)">
                         <v-icon color="teal">edit</v-icon>
                     </v-btn>
@@ -56,7 +59,7 @@
                 </td>
             </template>
             <template slot="no-data">
-                <v-btn color="primary" @click="initialize">Reset</v-btn>
+                <v-btn color="primary" @click="getSurveys">Reset</v-btn>
             </template>
         </v-data-table>
         <div class="text-xs-center pt-2">
@@ -127,15 +130,11 @@
                             this.pageLength = Math.ceil(response.data.meta.total / response.data.meta.per_page);
                             this.loading = false;
                         }
-                        this.surveys = response.data.data;
                     })
                     .catch((error) => {
                         this.loading = false;
                         console.info(error.response);
                     })
-            },
-            initialize() {
-
             },
             editItem(id) {
                 this.$router.push({name: 'editor', params: {id: id}})
@@ -177,6 +176,9 @@
                             this.getSurveys();
                         }
                     })
+            },
+            showResults(item) {
+
             }
         }
     }

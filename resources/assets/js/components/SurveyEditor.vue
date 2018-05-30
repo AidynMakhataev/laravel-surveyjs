@@ -2,12 +2,18 @@
     <div>
         <v-toolbar>
             <v-btn icon class="mb-3" @click.native = "$router.push({name: 'home'})">
-                <v-icon large class="mr-3">home</v-icon>
+                <v-icon large>home</v-icon>
             </v-btn>
             <v-toolbar-title @click.prevent="nameField = true" v-if="!nameField">{{surveyName}}</v-toolbar-title>
             <v-flex xs4 v-else>
                 <v-spacer></v-spacer>
-                <v-text-field v-model="surveyName"></v-text-field>
+                <v-text-field
+                        v-model="surveyName"
+                        :rules="[
+                                            () => !!surveyName || 'The field name is required',
+                                            () => !!surveyName && surveyName.length >= 3 || 'Name must contain at least 3 character!',
+                                            ]"
+                ></v-text-field>
             </v-flex>
             <v-toolbar-items v-if="nameField">
                 <v-btn small flat color="primary" @click.prevent="postEdit">Save</v-btn>

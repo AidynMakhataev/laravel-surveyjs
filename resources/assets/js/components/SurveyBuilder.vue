@@ -2,23 +2,12 @@
     <div>
         <div id="surveyEditorContainer">
         </div>
-        <v-snackbar
-                :timeout="6000"
-                bottom
-                right
-                multi-line
-                v-model="snackbar"
-        >
-            {{ snackbarMsg }}
-            <v-btn flat color="blue" @click.native="snackbar = false">Close</v-btn>
-        </v-snackbar>
     </div>
 </template>
 
 
 <script>
     import * as SurveyEditor from 'surveyjs-editor'
-    import 'bootstrap/dist/css/bootstrap.css';
     import 'surveyjs-editor/surveyeditor.css';
 
     export default {
@@ -27,9 +16,7 @@
         data () {
             return {
                 surveyData: this.json,
-                surveyId: this.id,
-                snackbar: false,
-                snackbarMsg: ''
+                surveyId: this.id
             }
         },
         mounted () {
@@ -42,8 +29,8 @@
                 axios.put('/survey/' + self.id, {json: JSON.parse(this.text)})
                     .then((response) => {
                         self.snackbar = true;
-                        self.snackbarMsg = response.data.message;
-                        self.editor.text = JSON.stringify(response.data.data.json);
+                        self.$root.snackbarMsg = response.data.message;
+                        self.$root.editor.text = JSON.stringify(response.data.data.json);
                     })
                     .catch((error) => {
                         console.error(error.response);

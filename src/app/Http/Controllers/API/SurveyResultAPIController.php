@@ -2,6 +2,7 @@
 
 namespace AidynMakhataev\LaravelSurveyJs\app\Http\Controllers\API;
 
+use AidynMakhataev\LaravelSurveyJs\app\Http\Resources\SurveyResource;
 use AidynMakhataev\LaravelSurveyJs\app\Models\Survey;
 use AidynMakhataev\LaravelSurveyJs\app\Http\Resources\SurveyResultResource;
 use Illuminate\Http\Request;
@@ -13,7 +14,10 @@ class SurveyResultAPIController extends Controller {
 
         $results = $survey->results()->paginate(config('survey-manager.pagination_perPage', 10));
 
-        return SurveyResultResource::collection($results);
+        return SurveyResultResource::collection($results)
+                ->additional(['meta' => [
+                    'survey'    =>  new SurveyResource($survey)
+                ]]);
     }
 
     /**

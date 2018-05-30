@@ -1,8 +1,6 @@
 <?php
 
 namespace AidynMakhataev\LaravelSurveyJs\app\Http\Resources;
-
-use AidynMakhataev\LaravelSurveyJs\app\Http\Resources\SurveyResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class SurveyResultResource extends JsonResource
@@ -19,7 +17,7 @@ class SurveyResultResource extends JsonResource
             'id'            =>  $this->id,
             'json'          =>  $this->json,
             'ip_address'    =>  $this->ip_address,
-            'created_at'    =>  $this->created_at
+            'created_at'    =>  $this->created_at->formatLocalized('%A %d %B %Y')
         ];
     }
 }

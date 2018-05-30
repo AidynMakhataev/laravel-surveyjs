@@ -12,13 +12,13 @@ Vue.use(Vuetify);
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
-
 /**
  * Import admin spa components
  */
 
 import SurveyList from './components/SurveyList.vue';
 import SurveyEditor from './components/SurveyEditor.vue';
+import SurveyResult from './components/SurveyResult.vue';
 
 
 /**
@@ -26,7 +26,8 @@ import SurveyEditor from './components/SurveyEditor.vue';
  */
 const routes = [
     { path: '/', component: SurveyList, name: 'home'},
-    { path: '/:id', component: SurveyEditor, name: 'editor'}
+    { path: '/:id', component: SurveyEditor, name: 'editor'},
+    { path: '/:id/results', component: SurveyResult, name: 'result'}
 ];
 
 const router = new VueRouter({
