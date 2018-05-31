@@ -30,7 +30,7 @@
     </div>
 
     <script>
-        Survey.StylesManager.applyTheme('default');
+        Survey.StylesManager.applyTheme('{!! config('survey-manager.theme') !!}');
 
         $.ajaxSetup({
 
@@ -45,6 +45,7 @@
         var json = {!! json_encode($survey->json) !!};
 
         window.survey = new Survey.Model(json);
+        window.survey.locale = '{!! config('survey-manager.locale') !!}';
 
         survey.onComplete
             .add(function (result) {

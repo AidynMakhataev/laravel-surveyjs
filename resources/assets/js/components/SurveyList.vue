@@ -12,7 +12,7 @@
                     <v-card-text>
                         <v-container grid-list-md>
                             <v-layout wrap>
-                                <v-flex xs12 sm6 md4>
+                                <v-flex xs12>
                                     <v-text-field
                                             v-model="editedItem.name"
                                             label="Survey name"
@@ -47,11 +47,14 @@
                 <td class="text-sm-left">{{ props.item.name }}</td>
                 <td class="text-sm-left">{{ props.item.created_at}}</td>
                 <td class="justify-center layout px-0">
-                    <v-btn icon class="mx-0" @click="showResults(props.item)">
+                    <v-btn icon class="mx-0" @click="runSurvey(props.item.slug)">
+                        <v-icon color="teal">play_circle_outline</v-icon>
+                    </v-btn>
+                    <v-btn icon class="mx-0" @click="showResults(props.item.id)">
                         <v-icon color="indigo">question_answer</v-icon>
                     </v-btn>
                     <v-btn icon class="mx-0" @click="editItem(props.item.id)">
-                        <v-icon color="teal">edit</v-icon>
+                        <v-icon color="amber">edit</v-icon>
                     </v-btn>
                     <v-btn icon class="mx-0" @click="deleteItem(props.item)">
                         <v-icon color="pink">delete</v-icon>
@@ -149,13 +152,13 @@
                                 this.$root.snackbar = true;
                             }
                         });
-                    this.getSurveys();
+                    const index = this.surveys.indexOf(item);
+                    this.surveys.splice(index, 1);
                 }
             },
             onCloseModal() {
                 this.dialog = false;
                 this.editedItem = Object.assign({}, {name: ''})
-
             },
             onSaveModal(name) {
                 this.loading = true;
@@ -177,8 +180,11 @@
                         }
                     })
             },
-            showResults(item) {
-
+            runSurvey(slug) {
+                window.open('/' + SurveyConfig.route_prefix + '/' + slug, '_blank');
+            },
+            showResults(id) {
+                this.$router.push({name: 'result', params: {id: id} })
             }
         }
     }

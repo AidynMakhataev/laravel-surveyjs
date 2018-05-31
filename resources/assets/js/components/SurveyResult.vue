@@ -1,52 +1,52 @@
 <template>
-   <div>
-       <v-toolbar>
-           <v-btn icon class="mb-3" @click.native = "$router.push({name: 'home'})">
-               <v-icon large>home</v-icon>
-           </v-btn>
-           <v-toolbar-title>Survey #{{surveyId}} Results</v-toolbar-title>
-       </v-toolbar>
-       <v-data-table
-               :headers="headers"
-               :items="results"
-               :loading="loading"
-               hide-actions
-               class="elevation-1"
-       >
-           <template slot="items" slot-scope="props">
-               <td class="text-sm-left">{{ props.item.id }}</td>
-               <td class="text-sm-left">{{ props.item.ip_address }}</td>
-               <td class="text-sm-left">{{ props.item.created_at}}</td>
-               <td class="text-sm-left layout px-0">
-                   <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
-                       <v-btn slot="activator" color="primary" dark @click.prevent="showSurvey(props.item)">Show in Survey</v-btn>
-                       <v-card>
-                           <v-toolbar dark color="primary">
-                               <v-btn icon dark @click.native="dialog = false">
-                                   <v-icon>close</v-icon>
-                               </v-btn>
-                               <v-toolbar-title>Settings</v-toolbar-title>
-                               <v-spacer></v-spacer>
-                               <v-toolbar-items>
-                                   <v-btn dark flat @click.native="dialog = false">Save</v-btn>
-                               </v-toolbar-items>
-                           </v-toolbar>
-                           <survey :survey="surveyData"></survey>
-                       </v-card>
-                   </v-dialog>
-               </td>
-           </template>
-           <template slot="no-data">
-               <v-alert :value="!results.length > 0" color="error" icon="warning">
-                   Sorry, nothing to display here :(
-               </v-alert>
-               <v-btn color="primary" @click="getSurveyResults">Reset</v-btn>
-           </template>
-       </v-data-table>
-       <div class="text-xs-center pt-2">
-           <v-pagination v-model="page" :length="pageLength" :total-visible="7"></v-pagination>
-       </div>
-   </div>
+    <div>
+        <v-toolbar>
+            <v-btn icon class="mb-3" @click.native = "$router.push({name: 'home'})">
+                <v-icon large>home</v-icon>
+            </v-btn>
+            <v-toolbar-title>Survey #{{surveyId}} Results</v-toolbar-title>
+        </v-toolbar>
+        <v-data-table
+                :headers="headers"
+                :items="results"
+                :loading="loading"
+                hide-actions
+                class="elevation-1"
+        >
+            <template slot="items" slot-scope="props">
+                <td class="text-sm-left">{{ props.item.id }}</td>
+                <td class="text-sm-left">{{ props.item.ip_address }}</td>
+                <td class="text-sm-left">{{ props.item.created_at}}</td>
+                <td class="text-sm-left layout px-0">
+                    <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
+                        <v-btn slot="activator" color="primary" dark @click.prevent="showSurvey(props.item)">Show in Survey</v-btn>
+                        <v-card>
+                            <v-toolbar dark color="primary">
+                                <v-btn icon dark @click.native="dialog = false">
+                                    <v-icon>close</v-icon>
+                                </v-btn>
+                                <v-toolbar-title>Settings</v-toolbar-title>
+                                <v-spacer></v-spacer>
+                                <v-toolbar-items>
+                                    <v-btn dark flat @click.native="dialog = false">Save</v-btn>
+                                </v-toolbar-items>
+                            </v-toolbar>
+                            <survey :survey="surveyData" v-if="dialog"></survey>
+                        </v-card>
+                    </v-dialog>
+                </td>
+            </template>
+            <template slot="no-data">
+                <v-alert :value="!results.length > 0" color="error" icon="warning">
+                    Sorry, nothing to display here :(
+                </v-alert>
+                <v-btn color="primary" @click="getSurveyResults">Reset</v-btn>
+            </template>
+        </v-data-table>
+        <div class="text-xs-center pt-2">
+            <v-pagination v-model="page" :length="pageLength" :total-visible="7"></v-pagination>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -57,7 +57,7 @@
                 results: [],
                 loading: false,
                 survey: {},
-                surveyData: '',
+                surveyData: {},
                 dialog: false,
                 surveyId: this.$route.params.id,
                 page: 1,
@@ -89,11 +89,6 @@
         },
         mounted () {
             this.getSurveyResults(this.$route.params.id);
-
-            let surveyVueScript = document.createElement('script');
-            surveyVueScript.setAttribute('src', 'https://surveyjs.azureedge.net/1.0.24/survey.vue.js');
-            surveyVueScript.async = true;
-            document.head.appendChild(surveyVueScript);
         },
         watch: {
             page() {
@@ -106,7 +101,6 @@
                 surveyVueScript.setAttribute('src', 'https://surveyjs.azureedge.net/1.0.24/survey.vue.js');
                 surveyVueScript.async = true;
                 document.head.appendChild(surveyVueScript);
-
                 this.loading = true;
                 axios.get('/survey/' + id + '/result?page=' + this.page)
                     .then((response) => {
@@ -121,12 +115,9 @@
                         console.info(error.response);
                         this.loading = false;
                     })
-
             },
             showSurvey(result) {
-                Object.assign(this.surveyData, {
-                   data: JSON.parse(JSON.stringify(result.json))
-                });
+                this.surveyData.data = result.json
             }
         }
     }

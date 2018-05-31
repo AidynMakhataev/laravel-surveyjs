@@ -17,6 +17,10 @@ return [
 
     'pagination_perPage'        =>  12,
 
+    'locale'                    =>  'en',
+
+    'theme'                     =>  'darkblue',
+
     'builder'                   =>  [
 
         'theme'                 =>  'darkblue',
