@@ -14,13 +14,10 @@
     "bootstrap": "^3.3.7",
     "popper.js": "^1.12",
     "cross-env": "^5.1",
-    "jquery": "^3.1.1",
     "laravel-mix": "^2.0",
-    "lodash": "^4.17.4",
     "vue": "^2.5.7",
     "survey-vue": "^1.0.15",
     "surveyjs-editor": "^1.0.15",
-    "surveyjs-widgets": "^1.0.15",
     "survey-knockout": "^1.0.22"
   },
   "dependencies": {
