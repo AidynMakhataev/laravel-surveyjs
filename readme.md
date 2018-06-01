@@ -4,7 +4,8 @@
 [![Total Downloads][ico-downloads]][link-downloads]
 
 Laravel Survey Manager system based on surveyjs library. Take a look at [contributing.md](contributing.md) to see a to do list.
-
+<img src="https://i.imgur.com/o9RAHmp.gif" />
+<br>
 ## Installation
 
 1) In your terminal:
@@ -16,7 +17,7 @@ $ composer require aidynmakhataev/laravelsurveyjs
 2) Publish the config file & run the migrations 
 
 ```bash
-php artisan vendor:publish --provider="AidynMakhataev/LaravelSurveyJsServiceProvider"
+php artisan vendor:publish --provider="AidynMakhataev\LaravelSurveyJs\LaravelSurveyJsServiceProvider"
 php artisan migrate
 ```
 
@@ -25,7 +26,7 @@ TODO
 ## Change log
 
 Please see the [changelog](changelog.md) for more information on what has changed recently.
-
+``
 
 ## Contributing
 
