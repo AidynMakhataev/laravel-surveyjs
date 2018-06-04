@@ -14,27 +14,12 @@
                 class="elevation-1"
         >
             <template slot="items" slot-scope="props">
-                <td class="text-sm-left">{{ props.item.id }}</td>
-                <td class="text-sm-left">{{ props.item.ip_address }}</td>
-                <td class="text-sm-left">{{ props.item.created_at}}</td>
-                <td class="text-sm-left layout px-0">
-                    <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
-                        <v-btn slot="activator" color="primary" dark @click.prevent="showSurvey(props.item)">Show in Survey</v-btn>
-                        <v-card>
-                            <v-toolbar dark color="primary">
-                                <v-btn icon dark @click.native="dialog = false">
-                                    <v-icon>close</v-icon>
-                                </v-btn>
-                                <v-toolbar-title>Settings</v-toolbar-title>
-                                <v-spacer></v-spacer>
-                                <v-toolbar-items>
-                                    <v-btn dark flat @click.native="dialog = false">Save</v-btn>
-                                </v-toolbar-items>
-                            </v-toolbar>
-                            <survey :survey="surveyData" v-if="dialog"></survey>
-                        </v-card>
-                    </v-dialog>
-                </td>
+                    <td class="text-sm-left">{{ props.item.id }}</td>
+                    <td class="text-sm-left">{{ props.item.ip_address }}</td>
+                    <td class="text-sm-left">{{ props.item.created_at}}</td>
+                    <td class="text-sm-left layout px-0">
+                        <v-btn slot="activator" color="primary" dark @click.native.stop="showSurvey(props.item)">Show in Survey</v-btn>
+                    </td>
             </template>
             <template slot="no-data">
                 <v-alert :value="!results.length > 0" color="error" icon="warning">
@@ -46,6 +31,22 @@
         <div class="text-xs-center pt-2">
             <v-pagination v-model="page" :length="pageLength" :total-visible="7"></v-pagination>
         </div>
+
+        <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
+            <v-card>
+                <v-toolbar dark color="primary">
+                    <v-btn icon dark @click.native="dialog = false">
+                        <v-icon>close</v-icon>
+                    </v-btn>
+                    <v-toolbar-title>Settings</v-toolbar-title>
+                    <v-spacer></v-spacer>
+                    <v-toolbar-items>
+                        <v-btn dark flat @click.native="dialog = false">Save</v-btn>
+                    </v-toolbar-items>
+                </v-toolbar>
+                <survey :survey="surveyData" v-if="Object.keys(surveyData).length"></survey>
+            </v-card>
+        </v-dialog>
     </div>
 </template>
 
@@ -57,8 +58,8 @@
                 results: [],
                 loading: false,
                 survey: {},
-                surveyData: {},
                 dialog: false,
+                surveyData: {},
                 surveyId: this.$route.params.id,
                 page: 1,
                 pageLength: 1,
@@ -89,6 +90,7 @@
         },
         mounted () {
             this.getSurveyResults(this.$route.params.id);
+
         },
         watch: {
             page() {
@@ -97,10 +99,6 @@
         },
         methods: {
             getSurveyResults(id = this.surveyId) {
-                let surveyVueScript = document.createElement('script');
-                surveyVueScript.setAttribute('src', 'https://surveyjs.azureedge.net/1.0.24/survey.vue.js');
-                surveyVueScript.async = true;
-                document.head.appendChild(surveyVueScript);
                 this.loading = true;
                 axios.get('/survey/' + id + '/result?page=' + this.page)
                     .then((response) => {
@@ -110,14 +108,17 @@
                         this.loading = false;
                         this.surveyData = new Survey.Model(response.data.meta.survey.json);
                         this.surveyData.mode = 'display';
+
+
                     })
                     .catch((error) => {
                         console.info(error.response);
                         this.loading = false;
-                    })
+                    });
             },
             showSurvey(result) {
-                this.surveyData.data = result.json
+                this.dialog = true;
+                this.surveyData.data = result.json;
             }
         }
     }

@@ -1,6 +1,6 @@
 {
     "name": "aidynmakhataev/laravelsurveyjs",
-    "description": ":description",
+    "description": "Laravel wrapper for surveyjs library",
     "license": "MIT",
     "authors": [
         {
@@ -10,7 +10,9 @@
         }
     ],
     "homepage": "https://github.com/aidynmakhataev/laravelsurveyjs",
-    "keywords": ["Laravel", "LaravelSurveyJs"],
+    "keywords": [
+        "Laravel", "LaravelSurveyJs", "surveyjs", "survey manager", "laravel survey", "survey editor", "surveyjs builder", "aidynmakhataev"
+    ],
     "require": {
         "illuminate/support": "~5",
         "cviebrock/eloquent-sluggable": "^4.0"

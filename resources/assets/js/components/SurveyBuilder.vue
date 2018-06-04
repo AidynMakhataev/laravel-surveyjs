@@ -28,9 +28,9 @@
             this.editor.saveSurveyFunc = function () {
                 axios.put('/survey/' + self.id, {json: JSON.parse(this.text)})
                     .then((response) => {
-                        self.snackbar = true;
+                        self.editor.text = JSON.stringify(response.data.data.json);
+                        self.$root.snackbar = true;
                         self.$root.snackbarMsg = response.data.message;
-                        self.$root.editor.text = JSON.stringify(response.data.data.json);
                     })
                     .catch((error) => {
                         console.error(error.response);
