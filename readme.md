@@ -4,9 +4,9 @@
 [![Total Downloads][ico-downloads]][link-downloads]
 
 Laravel Survey Manager system based on surveyjs library. Take a look at [contributing.md](contributing.md) to see a to do list.
-
 <br>
 <img src="https://i.imgur.com/o9RAHmp.gif" />
+<br>
 ## Installation
 
 1) In your terminal:
