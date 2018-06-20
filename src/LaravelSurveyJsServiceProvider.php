@@ -26,24 +26,6 @@ class LaravelSurveyJsServiceProvider extends ServiceProvider
 
 
             $this->definePublishable();
-
-            // Publishing the views.
-            /*$this->publishes([
-                __DIR__.'/../resources/views' => base_path('resources/views/vendor/aidynmakhataev'),
-            ], 'laravelsurveyjs.views');*/
-
-            // Publishing assets.
-            /*$this->publishes([
-                __DIR__.'/../resources/assets' => public_path('vendor/aidynmakhataev'),
-            ], 'laravelsurveyjs.views');*/
-
-            // Publishing the translation files.
-            /*$this->publishes([
-                __DIR__.'/../resources/lang' => resource_path('lang/vendor/aidynmakhataev'),
-            ], 'laravelsurveyjs.views');*/
-
-            // Registering package commands.
-            // $this->commands([]);
         }
     }
 
@@ -57,11 +39,6 @@ class LaravelSurveyJsServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             __DIR__.'/../config/survey-manager.php', 'survey-manager'
         );
-
-        // Register the service the package provides.
-        $this->app->singleton('survey-manager', function ($app) {
-            return new LaravelSurveyJs;
-        });
     }
 
     /**
@@ -85,7 +62,11 @@ class LaravelSurveyJsServiceProvider extends ServiceProvider
         ], 'migrations');
 
         $this->publishes([
-           realpath(__DIR__.'/../public') => public_path('vendor/AidynMakhataev/LaravelSurveyJs')
+           realpath(__DIR__.'/../public') => public_path('vendor/survey-manager')
         ], 'public');
+
+        $this->publishes([
+           realpath(__DIR__.'/../resources/views') => resource_path('views/vendor/survey-manager')
+        ]);
     }
 }

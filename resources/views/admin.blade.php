@@ -76,7 +76,7 @@
 <script>
     window.SurveyConfig = {!! json_encode(config('survey-manager')) !!};
 </script>
-<script src="{{asset('vendor/AidynMakhataev/LaravelSurveyJs/js/survey-manager.js')}}"></script>
+<script src="{{asset('vendor/survey-manager/js/survey-manager.js')}}"></script>
 <script src="https://surveyjs.azureedge.net/1.0.24/survey.vue.js"></script>
 
 

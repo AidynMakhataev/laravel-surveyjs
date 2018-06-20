@@ -38,11 +38,8 @@
                     <v-btn icon dark @click.native="dialog = false">
                         <v-icon>close</v-icon>
                     </v-btn>
-                    <v-toolbar-title>Settings</v-toolbar-title>
+                    <v-toolbar-title>Show in Survey</v-toolbar-title>
                     <v-spacer></v-spacer>
-                    <v-toolbar-items>
-                        <v-btn dark flat @click.native="dialog = false">Save</v-btn>
-                    </v-toolbar-items>
                 </v-toolbar>
                 <survey :survey="surveyData" v-if="Object.keys(surveyData).length"></survey>
             </v-card>
@@ -119,7 +116,7 @@
             showSurvey(result) {
                 this.dialog = true;
                 this.surveyData.data = result.json;
-            }
+               }
         }
     }
 </script>
