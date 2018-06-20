@@ -87,5 +87,10 @@ class LaravelSurveyJsServiceProvider extends ServiceProvider
         $this->publishes([
            realpath(__DIR__.'/../public') => public_path('vendor/AidynMakhataev/LaravelSurveyJs')
         ], 'public');
+        
+        // publish views
+        $this->publishes([
+            __DIR__.'/../resources/views' => base_path('resources/views/vendor/survey-manager'),
+        ], 'laravelsurveyjs.views');
     }
 }
