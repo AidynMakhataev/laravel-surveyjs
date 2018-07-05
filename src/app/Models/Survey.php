@@ -13,28 +13,27 @@ class Survey extends Model
     protected $table = 'surveys';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'name', 'slug', 'json'
+        'name', 'slug', 'json',
     ];
     protected $casts = [
-        'json'  =>  'array'
+        'json'  =>  'array',
     ];
-
 
     public function sluggable(): array
     {
         return [
             'slug' => [
                 'source' => 'slug_or_name',
-            ]
+            ],
         ];
     }
-
 
     public function getSlugOrNameAttribute()
     {
         if ($this->slug != '') {
             return $this->slug;
         }
+
         return $this->name;
     }
 

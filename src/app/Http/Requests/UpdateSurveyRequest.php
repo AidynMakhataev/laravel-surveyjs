@@ -1,6 +1,7 @@
 <?php
 
 namespace AidynMakhataev\LaravelSurveyJs\app\Http\Requests;
+
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateSurveyRequest extends FormRequest
@@ -23,7 +24,7 @@ class UpdateSurveyRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'  =>  'max:255'
+            'name'  =>  'max:255',
         ];
     }
 }

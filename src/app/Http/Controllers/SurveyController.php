@@ -2,8 +2,8 @@
 
 namespace AidynMakhataev\LaravelSurveyJs\app\Http\Controllers;
 
-use AidynMakhataev\LaravelSurveyJs\app\Models\Survey;
 use Illuminate\Routing\Controller;
+use AidynMakhataev\LaravelSurveyJs\app\Models\Survey;
 
 class SurveyController extends Controller
 {
@@ -16,7 +16,7 @@ class SurveyController extends Controller
         $survey = Survey::where('slug', $slug)->firstOrFail();
 
         return view('survey-manager::survey', [
-            'survey'    =>  $survey
+            'survey'    =>  $survey,
         ]);
     }
 }
