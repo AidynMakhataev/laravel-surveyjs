@@ -2,11 +2,11 @@
 
 namespace AidynMakhataev\LaravelSurveyJs\app\Http\Controllers\API;
 
+use Illuminate\Routing\Controller;
+use AidynMakhataev\LaravelSurveyJs\app\Models\Survey;
+use AidynMakhataev\LaravelSurveyJs\app\Http\Resources\SurveyResource;
 use AidynMakhataev\LaravelSurveyJs\app\Http\Requests\CreateSurveyRequest;
 use AidynMakhataev\LaravelSurveyJs\app\Http\Requests\UpdateSurveyRequest;
-use AidynMakhataev\LaravelSurveyJs\app\Http\Resources\SurveyResource;
-use AidynMakhataev\LaravelSurveyJs\app\Models\Survey;
-use Illuminate\Routing\Controller;
 
 class SurveyAPIController extends Controller
 {
@@ -21,13 +21,13 @@ class SurveyAPIController extends Controller
     {
         $survey = Survey::find($id);
 
-        if(is_null($survey)) {
+        if (is_null($survey)) {
             return response()->json('Survey not found', 404);
         }
 
         return response()->json([
             'data'      =>  new SurveyResource($survey),
-            'message'   =>  'Survey successfully retrieved'
+            'message'   =>  'Survey successfully retrieved',
         ]);
     }
 
@@ -37,7 +37,7 @@ class SurveyAPIController extends Controller
 
         return response()->json([
             'data'      =>  new SurveyResource($survey),
-            'message'   =>  'Survey saved successfully'
+            'message'   =>  'Survey saved successfully',
         ], 201);
     }
 
@@ -45,7 +45,7 @@ class SurveyAPIController extends Controller
     {
         $survey = Survey::find($id);
 
-        if(is_null($survey)) {
+        if (is_null($survey)) {
             return response()->json('Survey not found', 404);
         }
 
@@ -53,7 +53,7 @@ class SurveyAPIController extends Controller
 
         return response()->json([
             'data'      =>  new SurveyResource($survey),
-            'message'   =>  'Survey successfully updated'
+            'message'   =>  'Survey successfully updated',
         ]);
     }
 
@@ -61,14 +61,14 @@ class SurveyAPIController extends Controller
     {
         $survey = Survey::find($id);
 
-        if(is_null($survey)) {
+        if (is_null($survey)) {
             return response()->json('Survey not found', 404);
         }
         $survey->delete();
 
         return response()->json([
             'data' => $id,
-            'message' => 'Survey deleted successfully'
+            'message' => 'Survey deleted successfully',
         ], 200);
     }
 }
