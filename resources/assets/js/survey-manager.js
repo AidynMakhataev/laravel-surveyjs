@@ -6,8 +6,10 @@
 require("./base");
 
 window.Vue = require("vue");
-window.Vuetify = require('vuetify');
-Vue.use(Vuetify);
+
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css' 
+Vue.use(Vuetify)
 
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);

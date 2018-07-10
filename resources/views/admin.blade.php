@@ -8,7 +8,6 @@
     <meta name="csrf-token" content="{{csrf_token()}}">
     <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/survey-knockout/survey.css" />
-    <link rel="stylesheet" href="https://unpkg.com/vuetify/dist/vuetify.min.css">
 
     <style>
         .card--flex-toolbar {
