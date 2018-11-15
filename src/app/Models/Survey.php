@@ -3,38 +3,41 @@
 namespace AidynMakhataev\LaravelSurveyJs\app\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Survey extends Model
 {
-    use Sluggable, SoftDeletes;
+    use SoftDeletes;
 
     protected $table = 'surveys';
     protected $primaryKey = 'id';
+
     protected $fillable = [
         'name', 'slug', 'json',
     ];
+
     protected $casts = [
         'json'  =>  'array',
     ];
 
-    public function sluggable(): array
+    public static function boot()
     {
-        return [
-            'slug' => [
-                'source' => 'slug_or_name',
-            ],
-        ];
-    }
+        parent::boot();
 
-    public function getSlugOrNameAttribute()
-    {
-        if ($this->slug != '') {
-            return $this->slug;
-        }
+        static::creating(function ($survey) {
+            $survey->slug = str_slug($survey->name);
 
-        return $this->name;
+            $latestSlug = static::whereRaw("slug = '$survey->slug' or slug LIKE '$survey->slug-%'")
+                                ->latest('id')
+                                ->value('slug');
+            if($latestSlug) {
+                $pieces = explode('-', $latestSlug);
+
+                $number = intval(end($pieces));
+
+                $survey->slug .= '-' . ($number + 1);
+            }
+        });
     }
 
     /**
