@@ -12,5 +12,11 @@ Vue.use(Vuetify)
 
 new Vue({
     router,
+    data () {
+        return {
+            snackbar: false,
+            snackbarMsg: ''
+        }
+    },
     render: h => h(App)
 }).$mount('#survey-manager')

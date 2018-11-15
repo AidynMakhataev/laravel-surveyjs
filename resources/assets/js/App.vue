@@ -19,10 +19,10 @@
                                     bottom
                                     right
                                     multi-line
-                                    v-model="snackbar"
+                                    v-model="$root.snackbar"
                             >
-                                {{ snackbarMsg }}
-                                <v-btn flat color="blue" @click.native="snackbar = false">Close</v-btn>
+                                {{ $root.snackbarMsg }}
+                                <v-btn flat color="blue" @click.native="$root.snackbar = false">Close</v-btn>
                             </v-snackbar>
                         </v-card-text>
                     </v-card>
@@ -31,17 +31,6 @@
         </v-card>
     </v-app>
 </template>
-
-<script>
-    export default {
-        data () {
-            return {
-                snackbar: false,
-                snackbarMsg: ''
-            }
-        },
-    }
-</script>
 
 <style>
     .card--flex-toolbar {
