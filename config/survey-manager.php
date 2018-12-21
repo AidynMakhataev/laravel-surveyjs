@@ -76,7 +76,6 @@ return [
         'haveCommercialLicense' =>  false,
     ],
 
-
     /*
     |--------------------------------------------------------------------------
     | SurveyJS Custom Widgets
@@ -106,6 +105,6 @@ return [
 
         'autocomplete'          =>  false,
 
-        'bootstrapslider'       =>  false
-    ]
+        'bootstrapslider'       =>  false,
+    ],
 ];
