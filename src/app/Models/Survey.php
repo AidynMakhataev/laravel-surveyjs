@@ -30,12 +30,12 @@ class Survey extends Model
             $latestSlug = static::whereRaw("slug = '$survey->slug' or slug LIKE '$survey->slug-%'")
                                 ->latest('id')
                                 ->value('slug');
-            if($latestSlug) {
+            if ($latestSlug) {
                 $pieces = explode('-', $latestSlug);
 
                 $number = intval(end($pieces));
 
-                $survey->slug .= '-' . ($number + 1);
+                $survey->slug .= '-'.($number + 1);
             }
         });
     }
