@@ -83,7 +83,7 @@ return [
     */
     'widgets'                   =>  [
 
-        'icheck'                =>  true,
+        'icheck'                =>  false,
 
         'select2'               =>  false,
 
@@ -93,11 +93,11 @@ return [
 
         'jqueryuidatepicker'    =>  false,
 
-        'nouislider'            =>  true,
+        'nouislider'            =>  false,
 
         'select2tagbox'         =>  false,
 
-        'signaturepad'          =>  true,
+        'signaturepad'          =>  false,
 
         'sortablejs'            =>  false,
 
