@@ -75,4 +75,37 @@ return [
 
         'haveCommercialLicense' =>  false,
     ],
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | SurveyJS Custom Widgets
+    |--------------------------------------------------------------------------
+    */
+    'widgets'                   =>  [
+
+        'icheck'                =>  true,
+
+        'select2'               =>  false,
+
+        'inputmask'             =>  false,
+
+        'jquerybarrating'       =>  false,
+
+        'jqueryuidatepicker'    =>  false,
+
+        'nouislider'            =>  true,
+
+        'select2tagbox'         =>  false,
+
+        'signaturepad'          =>  true,
+
+        'sortablejs'            =>  false,
+
+        'ckeditor'              =>  false,
+
+        'autocomplete'          =>  false,
+
+        'bootstrapslider'       =>  false
+    ]
 ];

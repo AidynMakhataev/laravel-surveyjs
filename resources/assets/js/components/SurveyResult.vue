@@ -48,8 +48,29 @@
 </template>
 
 <script>
+    import * as SurveyVue from 'survey-vue'
+
+    const Survey = SurveyVue.Survey
+    SurveyVue.StylesManager.applyTheme(SurveyConfig.theme)
+
+    import * as widgets from "surveyjs-widgets";
+
+    Object.filter = (obj, predicate) =>
+        Object.keys(obj)
+            .filter( key => predicate(obj[key]) )
+            .reduce( (res, key) => Object.assign(res, { [key]: obj[key] }), {} );
+
+    const widgetsList = Object.filter(SurveyConfig.widgets, widget => widget === true);
+
+    Object.keys(widgetsList).forEach(function (widget) {
+        widgets[widget](SurveyVue);
+    });
+
     export default {
         name: 'survey-result',
+        components: {
+            Survey
+        },
         data () {
             return {
                 results: [],
@@ -87,7 +108,6 @@
         },
         mounted () {
             this.getSurveyResults(this.$route.params.id);
-
         },
         watch: {
             page() {
@@ -103,7 +123,7 @@
                         this.survey = response.data.meta.survey;
                         this.pageLength = Math.ceil(response.data.meta.total / response.data.meta.per_page);
                         this.loading = false;
-                        this.surveyData = new Survey.Model(response.data.meta.survey.json);
+                        this.surveyData = new SurveyVue.Model(response.data.meta.survey.json);
                         this.surveyData.mode = 'display';
 
 
