@@ -10,6 +10,8 @@ import router from './router'
 Vue.use(VueRouter)
 Vue.use(Vuetify)
 
+Vue.component('survey-show', './components/SurveyShow.vue')
+
 new Vue({
     router,
     data () {

@@ -21,6 +21,7 @@
     "survey-knockout": "^1.0.22"
   },
   "dependencies": {
+    "surveyjs-widgets": "^1.0.61",
     "vue-router": "^3.0.1",
     "vuetify": "^1.0.18"
   }
