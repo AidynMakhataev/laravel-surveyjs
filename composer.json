@@ -1,6 +1,6 @@
 {
-    "name": "basdog22/larasurvey",
-    "description": "Laravel wrapper for surveyjs library. Old package from AidynMakhataev seems abandoned and i desperately needed it to run for laravel > 5",
+    "name": "aidynmakhataev/laravelsurveyjs",
+    "description": "Laravel wrapper for surveyjs library",
     "license": "MIT",
     "authors": [
         {
@@ -9,7 +9,7 @@
             "homepage": "https://github.com/AidynMakhataev"
         }
     ],
-    "homepage": "https://github.com/basdog22/laravelsurveyjs",
+    "homepage": "https://github.com/aidynmakhataev/laravelsurveyjs",
     "keywords": [
         "Laravel", "LaravelSurveyJs", "surveyjs", "survey manager", "laravel survey", "survey editor", "surveyjs builder", "aidynmakhataev"
     ],
