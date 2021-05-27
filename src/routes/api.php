@@ -1,6 +1,5 @@
 <?php
 
-
 Route::group(
     [
         'namespace'     =>  'AidynMakhataev\LaravelSurveyJs\app\Http\Controllers\API',

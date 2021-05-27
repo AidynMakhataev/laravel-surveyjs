@@ -2,11 +2,11 @@
 
 namespace AidynMakhataev\LaravelSurveyJs\app\Http\Controllers\API;
 
-use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
-use AidynMakhataev\LaravelSurveyJs\app\Models\Survey;
 use AidynMakhataev\LaravelSurveyJs\app\Http\Resources\SurveyResource;
 use AidynMakhataev\LaravelSurveyJs\app\Http\Resources\SurveyResultResource;
+use AidynMakhataev\LaravelSurveyJs\app\Models\Survey;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class SurveyResultAPIController extends Controller
 {
