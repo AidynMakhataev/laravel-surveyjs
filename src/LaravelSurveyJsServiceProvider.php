@@ -61,11 +61,11 @@ class LaravelSurveyJsServiceProvider extends ServiceProvider
         ], 'migrations');
 
         $this->publishes([
-           realpath(__DIR__.'/../public') => public_path('vendor/survey-manager'),
+            realpath(__DIR__.'/../public') => public_path('vendor/survey-manager'),
         ], 'public');
 
         $this->publishes([
-           realpath(__DIR__.'/../resources/views') => resource_path('views/vendor/survey-manager'),
+            realpath(__DIR__.'/../resources/views') => resource_path('views/vendor/survey-manager'),
         ]);
     }
 }
