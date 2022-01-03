@@ -4,6 +4,7 @@ namespace AidynMakhataev\LaravelSurveyJs\app\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class Survey extends Model
 {
@@ -25,7 +26,7 @@ class Survey extends Model
         parent::boot();
 
         static::creating(function ($survey) {
-            $survey->slug = str_slug($survey->name);
+            $survey->slug = Str::slug($survey->name);
 
             $latestSlug = static::whereRaw("slug = '$survey->slug' or slug LIKE '$survey->slug-%'")
                                 ->latest('id')
